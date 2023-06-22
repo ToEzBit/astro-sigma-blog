@@ -1,0 +1,30 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Link from "../components/Link.astro";
+---
+
+<MainLayout title="About" description="this is about page">
+    <section class="container about" aria-label="AboutMe">
+        <img
+            src="/images/sigma.jpg"
+            alt="sigma face"
+            width="200"
+            height="330"
+        />
+    </section>
+    <div class="content">
+        <h1 class="h1">Sigma Boi</h1>
+        <p style="margin-bottom: 16px;">
+            Embrace your individuality, for the sigma male walks his own path.
+            Unburdened by societal expectations, he seeks fulfillment in
+            solitude and self-discovery. Strength lies in quiet confidence,
+            independence, and resilience. Let the world label, while you soar
+            above their limitations.
+        </p>
+        <Link
+            href="mailto:sigma-boi888@gg.dev"
+            style="primary"
+            text="Contact me"
+        />
+    </div>
+</MainLayout>

@@ -1,0 +1,34 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import PostItem from "../../components/post/PostItem.astro";
+import Pagination from "../../components/Pagination.astro";
+import { formatBlogPost } from "../../ts/utils";
+import CategoryCloud from "../../components/CategoryCloud.astro";
+
+export async function getStaticPaths({ paginate }) {
+    const posts = await Astro.glob("./*.md");
+    const formattedPosts = formatBlogPost(posts);
+    return paginate(formattedPosts, {
+        pageSize: 3,
+    });
+}
+const { page } = Astro.props;
+---
+
+<MainLayout title="Blog" description="this is blog page">
+    <section class="container" aria-label="New Blog Posts">
+        <h1 class="h1">New Blog Posts</h1>
+        <div class="post-container">
+            {
+                page.data.map((post) => (
+                    <PostItem frontmatter={post.frontmatter} url={post.url} />
+                ))
+            }
+        </div>
+        <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+    </section>
+    <aside class="containrt" aria-label="Blog Category">
+        <h2 class="h3">Blog Categories</h2>
+        <CategoryCloud showCount={true} />
+    </aside>
+</MainLayout>

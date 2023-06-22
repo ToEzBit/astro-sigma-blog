@@ -1,0 +1,26 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Link from "../components/Link.astro";
+---
+
+<MainLayout title="Page Not found" description="this is about page">
+    <div
+        class="coontainer"
+        style={{
+            display: "grid",
+            placeItems: "center",
+            textAlign: "center",
+            gap: "var(--space-sm)",
+        }}
+    >
+        <div>
+            <h1 class="h1">Your are not sigma !</h1>
+        </div>
+        <Link
+            href="/"
+            style="secondary"
+            text="Back to sigma"
+            icon={{ name: "tabler:home", side: "right" }}
+        />
+    </div>
+</MainLayout>

@@ -1,0 +1,30 @@
+---
+import { Icon } from "astro-icon";
+import nav from "../data/nav";
+import Link from "../components/Link.astro";
+---
+
+<nav aria-label="Primary">
+    <div class="navbar">
+        <a href="/" class="logomark" aria-label="Go home">
+            <Icon name="logomark" width="60" /></a
+        >
+        <ul>
+            {
+                nav.map((item) => (
+                    <Link
+                        text={item.name}
+                        href={item.path}
+                        style="primary"
+                        isFilled={false}
+                        data-navLink
+                    />
+                ))
+            }
+        </ul>
+    </div>
+</nav>
+
+<script>
+    import "../ts/nav.ts";
+</script>

@@ -1,0 +1,48 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import PostItem from "../../components/post/PostItem.astro";
+import { slugify, formatBlogPost } from "../../ts/utils";
+export async function getStaticPaths() {
+    return [
+        {
+            params: { category: slugify("Sigma Male Traits") },
+            props: { name: "Sigma Male Traits" },
+        },
+        {
+            params: { category: slugify("Self-Improvement") },
+            props: { name: "Self-Improvement" },
+        },
+        {
+            params: { category: slugify("Emotional") },
+            props: { name: "Emotional" },
+        },
+        {
+            params: { category: slugify("Relationships") },
+            props: { name: "Relationships" },
+        },
+    ];
+}
+
+const { category } = Astro.params;
+const { name } = Astro.props;
+
+const posts = await Astro.glob("../blog/*.md");
+
+const formattedPosts = formatBlogPost(posts);
+const catPosts = formattedPosts.filter(
+    (post) => category === slugify(post.frontmatter.category)
+);
+---
+
+<MainLayout title={name} description={name}>
+    <section class="container" aria-label="New Blog Posts">
+        <h1 class="h1">Posts about <span>{name}</span></h1>
+        <div class="post-container">
+            {
+                catPosts.map((post) => (
+                    <PostItem frontmatter={post.frontmatter} url={post.url} />
+                ))
+            }
+        </div>
+    </section>
+</MainLayout>

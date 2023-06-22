@@ -1,0 +1,19 @@
+---
+import MainHead from "../layouts/MainHead.astro";
+import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
+import "../styles/global.css";
+
+const { title, description, image, frontmatter, robots } = Astro.props;
+---
+
+<html lang="en">
+    <MainHead {title} {description} {image} {frontmatter} {robots} />
+    <body>
+        <Nav />
+        <main>
+            <slot />
+        </main>
+        <Footer />
+    </body>
+</html>

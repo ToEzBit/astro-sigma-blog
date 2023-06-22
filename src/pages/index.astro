@@ -1,15 +1,46 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro";
+import PostItem from "../components/post/PostItem.astro";
+import Link from "../components/Link.astro";
+import { formatBlogPost } from "../ts/utils";
+const posts = await Astro.glob("../pages/blog/*.md");
+
+const formattedPosts = formatBlogPost(posts, { limit: 3 });
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Home" description="this is home page">
+	<section class="container about" aria-label="AboutMe">
+		<img
+			src="/images/sigma.jpg"
+			alt="sigma face"
+			width="200"
+			height="330"
+		/>
+	</section>
+	<div class="content">
+		<h1 class="h1">Sigma Boi</h1>
+		<p style="margin-bottom: 16px;">
+			Embrace your individuality, for the sigma male walks his own path.
+			Unburdened by societal expectations, he seeks fulfillment in
+			solitude and self-discovery. Strength lies in quiet confidence,
+			independence, and resilience. Let the world label, while you soar
+			above their limitations.
+		</p>
+		<Link
+			href="mailto:sigma-boi888@gg.dev"
+			style="secondary"
+			isFilled={false}
+			text="🗿 be a sigma"
+		/>
+	</div>
+	<section class="container" aria-label="New Blog Posts">
+		<h2 class="h1">New Posts</h2>
+		<div class="post-container">
+			{
+				formattedPosts.map((post) => (
+					<PostItem frontmatter={post.frontmatter} url={post.url} />
+				))
+			}
+		</div>
+	</section>
+</MainLayout>
